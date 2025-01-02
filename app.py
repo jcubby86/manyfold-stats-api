@@ -29,7 +29,6 @@ def extract_data():
             if li.name != 'li':
                 continue
             li = li.text.split(' ')
-            print(li)
             if li[1].lower().startswith('librar'):
                 stats['libraries'] = li[0]
             elif li[1].lower().startswith('model'):
