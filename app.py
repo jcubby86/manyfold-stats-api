@@ -22,9 +22,21 @@ def extract_data():
         ul = stats.next_sibling
         while ul and ul.name is None:
             ul = ul.next_sibling
-        # Example extraction: Get all links from the page
-        stats = {li[1].lower(): li[0] for li in [x.text.split(' ') for x in ul.children if x.name == 'li']}
 
+        # Extract the stats
+        stats = {}
+        for li in ul.children:
+            if li.name != 'li':
+                continue
+            li = li.text.split(' ')
+            print(li)
+            if li[1].lower().startswith('librar'):
+                stats['libraries'] = li[0]
+            elif li[1].lower().startswith('model'):
+                stats['models'] = li[0]
+            elif li[1].lower().startswith('file'):
+                stats['files'] = li[0]
+        
         # Return the extracted data as JSON
         return jsonify({'url': url, 'stats': stats})
     
